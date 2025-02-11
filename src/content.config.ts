@@ -12,3 +12,5 @@ const personne = defineCollection({
     nationalite: z.string(),
   }),
 });
+
+export const collections = { personne };
