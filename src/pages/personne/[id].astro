@@ -1,0 +1,55 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+import { formatDate } from "src/helper";
+
+export async function getStaticPaths() {
+  const personnes = await getCollection("personne");
+  return personnes.map((personne) => ({
+    params: { id: personne.id },
+    props: { personne },
+  }));
+}
+
+const { personne } = Astro.props;
+const { Content } = await render(personne);
+---
+
+<Layout pageTitle={`Fiche de ${personne.data.nom}`}>
+  <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
+    <h1 class="text-2xl font-bold text-gray-900">{personne.data.nom}</h1>
+    <p class="text-gray-700 mt-2">
+      Lieu de naissance : <span class="font-semibold"
+        >{personne.data.lieuNaissance}</span>
+    </p>
+    <p class="text-gray-700">
+      Date de naissance : <span class="font-semibold"
+        >{formatDate(personne.data.dateNaissance)}</span>
+    </p>
+    {
+      personne.data.dateDeces && (
+        <p class="text-gray-700">
+          Date de décès :{" "}
+          <span class="font-semibold">
+            {formatDate(personne.data.dateDeces)}
+          </span>
+        </p>
+      )
+    }
+    {
+      personne.data.lieuDeces && (
+        <p class="text-gray-700">
+          Lieu de décès :{" "}
+          <span class="font-semibold">{personne.data.lieuDeces}</span>
+        </p>
+      )
+    }
+    <p class="text-gray-700">
+      Nationalité : <span class="font-semibold"
+        >{personne.data.nationalite}</span>
+    </p>
+    <div class="mt-4">
+      <Content />
+    </div>
+  </div>
+</Layout>
