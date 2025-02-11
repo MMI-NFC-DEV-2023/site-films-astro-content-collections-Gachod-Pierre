@@ -33,6 +33,7 @@ const films = defineCollection({
     langue: z.string(),
     duree: z.string(),
     realisateur: reference("personne").optional(),
+    scenaristes: z.array(reference("personne")).optional(),
   }),
 });
 

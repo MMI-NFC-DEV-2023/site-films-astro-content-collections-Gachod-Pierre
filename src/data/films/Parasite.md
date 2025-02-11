@@ -5,4 +5,6 @@ synopsis: "Une famille pauvre s'infiltre dans la vie d'une famille riche, avec d
 langue: "Coréen"
 duree: "132 minutes"
 realisateur: "mel-gibson"
+scenaristes: 
+- robert-niro
 ---
