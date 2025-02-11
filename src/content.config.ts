@@ -34,6 +34,9 @@ const films = defineCollection({
     duree: z.string(),
     realisateur: reference("personne").optional(),
     scenaristes: z.array(reference("personne")).optional(),
+    roles: z.array(
+      z.object({ acteur: reference("personne"), personnage: z.string() })
+    ).optional(),
   }),
 });
 
