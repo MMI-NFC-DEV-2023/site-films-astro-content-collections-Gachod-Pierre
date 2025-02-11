@@ -1,5 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import { getEntry } from "astro:content";
 import { getCollection, render } from "astro:content";
 import { formatDate } from "src/helper";
 
@@ -13,6 +14,9 @@ export async function getStaticPaths() {
 
 const { film } = Astro.props;
 const { Content } = await render(film);
+
+const realisateur =
+  film.data.realisateur && (await getEntry(film.data.realisateur));
 ---
 
 <Layout pageTitle={`Fiche de ${film.data.titre}`}>
@@ -32,6 +36,9 @@ const { Content } = await render(film);
     <p class="text-gray-700">
       Durée : <span class="font-semibold">{film.data.duree}</span>
     </p>
+    {realisateur && <p>
+      Réalisateur : <span class="font-semibold">{realisateur.data.nom}</span>
+    </p>}
     <div class="mt-4">
       <Content />
     </div>
