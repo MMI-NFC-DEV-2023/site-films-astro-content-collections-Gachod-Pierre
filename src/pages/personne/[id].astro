@@ -54,10 +54,10 @@ const { Content } = await render(personne);
     </p>
     {
       personne.data.profession && (
-        <>
-          Profession{personne.data.profession.length > 1 && <>s</>} :{" "}
-          {personne.data.profession.join(", ")}
-        </>
+        <p class=" text-gray-700">
+            Profession{personne.data.profession.length > 1 ? "s" : ""} :{" "}
+          {personne.data.profession.join(", ").replace(/,([^,]*)$/, " et $1")}
+        </p>
       )
     }
     <div class="mt-4">

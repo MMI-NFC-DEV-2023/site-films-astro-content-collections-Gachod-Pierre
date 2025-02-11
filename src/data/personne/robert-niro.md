@@ -6,6 +6,7 @@ nationalite: US
 profession: 
 - réalisateur
 - acteur
+- producteur
 ---
 
 # Biographie de Robert De Niro
