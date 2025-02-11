@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const films = await getCollection("films");
+---
+
+<Layout pageTitle="Liste des films">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-center text-gray-900 my-6">
+      Liste des films
+    </h1>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {
+        films.map((film) => (
+          <li class="bg-white shadow-md rounded-lg p-4 text-center hover:shadow-lg transition-shadow">
+            <a
+              href={`./films/${film.id}`}
+              class="text-lg font-semibold text-blue-600 hover:underline"
+            >
+              {film.data.titre}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>

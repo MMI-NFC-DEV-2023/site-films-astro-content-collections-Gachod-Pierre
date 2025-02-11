@@ -1,0 +1,39 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+import { formatDate } from "src/helper";
+
+export async function getStaticPaths() {
+  const films = await getCollection("films");
+  return films.map((film) => ({
+    params: { id: film.id },
+    props: { film },
+  }));
+}
+
+const { film } = Astro.props;
+const { Content } = await render(film);
+---
+
+<Layout pageTitle={`Fiche de ${film.data.titre}`}>
+  <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
+    <h1 class="text-2xl font-bold text-gray-900">{film.data.titre}</h1>
+    <p class="text-gray-700 mt-2">
+      Date de sortie : <span class="font-semibold"
+        >{formatDate(film.data.dateSortie)}</span
+      >
+    </p>
+    <p class="text-gray-700">
+      Synopsis : <span class="font-semibold">{film.data.synopsis}</span>
+    </p>
+    <p class="text-gray-700">
+      Langue : <span class="font-semibold">{film.data.langue}</span>
+    </p>
+    <p class="text-gray-700">
+      Durée : <span class="font-semibold">{film.data.duree}</span>
+    </p>
+    <div class="mt-4">
+      <Content />
+    </div>
+  </div>
+</Layout>
