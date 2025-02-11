@@ -51,9 +51,8 @@ const scenaristes =
     {
       scenaristes && (
         <p>
-          Scénaristes :{" "}
+          Scénariste{scenaristes.length > 1 &&  <>s</>} :
           <span class="font-semibold">
-            {" "}
             {scenaristes
               .map((s) => s.data.nom)
               .join(", ")
