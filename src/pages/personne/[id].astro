@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 import { formatDate } from "src/helper";
+import LinkFilm from "@components/LinkFilm.astro";
 
 export async function getStaticPaths() {
   const personnes = await getCollection("personne");
@@ -13,6 +14,10 @@ export async function getStaticPaths() {
 
 const { personne } = Astro.props;
 const { Content } = await render(personne);
+
+const filmsRealisateur = [...(await getCollection("films"))].filter(
+  (film) => film.data?.realisateur?.id === personne.id
+);
 ---
 
 <Layout pageTitle={`Fiche de ${personne.data.nom}`}>
@@ -55,8 +60,23 @@ const { Content } = await render(personne);
     {
       personne.data.profession && (
         <p class=" text-gray-700">
-            Profession{personne.data.profession.length > 1 ? "s" : ""} :{" "}
+          Profession{personne.data.profession.length > 1 ? "s" : ""} :{" "}
           {personne.data.profession.join(", ").replace(/,([^,]*)$/, " et $1")}
+        </p>
+      )
+    }
+
+    {
+      filmsRealisateur.length > 0 && (
+        <p class="text-lg text-gray-700">
+          <strong>🎬 Films réalisés :</strong>{" "}
+          {filmsRealisateur.map((film, index) => (
+            <>
+              <LinkFilm {...film} />
+              {index < filmsRealisateur.length - 2 ? ", " : ""}
+              {index === filmsRealisateur.length - 2 ? " et " : ""}
+            </>
+          ))}
         </p>
       )
     }
