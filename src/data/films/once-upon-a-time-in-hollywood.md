@@ -4,9 +4,9 @@ dateSortie: 2019-07-26
 realisateur: "quentin-tarantino"
 roles:
   - acteur: leonardo-dicaprio
-    role: Rick Dalton
+    personnage: Rick Dalton
   - acteur: brad-pitt
-    role: Cliff Booth
+    personnage: Cliff Booth
 ---
 
 # Once Upon a Time in Hollywood
