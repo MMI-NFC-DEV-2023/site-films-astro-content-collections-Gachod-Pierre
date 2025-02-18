@@ -4,6 +4,7 @@ import { getEntries } from "astro:content";
 import { getEntry } from "astro:content";
 import { getCollection, render } from "astro:content";
 import { formatDate } from "src/helper";
+import LinkPersonne from "@components/LinkPersonne.astro";
 
 export async function getStaticPaths() {
   const films = await getCollection("films");
@@ -54,6 +55,7 @@ const roles =
         <p>
           Réalisateur :{" "}
           <span class="font-semibold">{realisateur.data.nom}</span>
+          <LinkPersonne personne={realisateur} />
         </p>
       )
     }
@@ -71,19 +73,30 @@ const roles =
       )
     }
     {
-    roles &&(
-      <>
-        <h2>Acteurs</h2>
-        <ul>
-          {roles.map(({ personnage, acteur }) => (
-            <li>
-              <strong>{personnage}</strong> interprété par : <strong>{acteur && <> <a href={`/personne/${acteur.id}`}>{acteur.data.nom}</a> </>}</strong>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
+      roles && (
+        <>
+          <h2>Acteurs</h2>
+          <ul>
+            {roles.map(({ personnage, acteur }) => (
+              <li>
+                <strong>{personnage}</strong> interprété par :{" "}
+                <strong>
+                  {acteur && (
+                    <>
+                      {" "}
+                      <a href={`/personne/${acteur.id}`}>
+                        {acteur.data.nom}
+                      </a>{" "}
+                    </>
+                  )}
+                </strong>
+                <LinkPersonne personne={acteur} />
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
     <div class="mt-4">
       <Content />
     </div>
