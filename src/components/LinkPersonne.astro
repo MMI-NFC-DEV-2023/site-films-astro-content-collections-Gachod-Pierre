@@ -1,9 +1,13 @@
 ---
-const {personne} = Astro.props;
+const { personne } = Astro.props;
 ---
 
-<Fragment>
-  <a href={`/personne/${personne.id}`} class="text-blue-600 hover:underline">
-    {personne.data.nom}
-  </a>
-</Fragment>
+{
+  personne ? (
+    <a href={`/personne/${personne.id}`} class="text-blue-600 hover:underline">
+      {personne.data.nom}
+    </a>
+  ) : (
+    <span class="text-gray-500 italic">Inconnu</span>
+  )
+}
